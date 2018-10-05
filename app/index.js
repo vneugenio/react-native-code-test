@@ -5,54 +5,49 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Platform, Text, View, Image } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { fadeIn } from 'react-navigation-transitions';
+import { YellowBox } from 'react-native';
+import HomePage from './screens/home';
+import PreLoader from './screens/preloader';
+import Users from './screens/users';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
-type Props = {};
-export default class App extends Component<Props> {
+const AppStack = createStackNavigator(
+  {
+    HomeScreen: {
+        screen: HomePage,
+        navigationOptions: ({navigation}) => ({
+            header: null
+        })
+    },
+    PreLoadScreen: {
+        screen: PreLoader,
+        navigationOptions: ({navigation}) => ({
+            header: null
+        })
+    },
+    UsersScreen: {
+        screen: Users,
+        navigationOptions: ({navigation}) => ({
+            header: null
+        })
+    }
+  },
+  {
+    initialRouteName: 'HomeScreen',
+    transitionConfig: () => fadeIn(500)
+  },
+);
+
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+        <AppStack />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
