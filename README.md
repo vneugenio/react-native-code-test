@@ -1,3 +1,12 @@
+App was only able to be tested through a virtual android deivce (Nexus 5x)
+
+- yarn install
+- react-native link
+- react-native run-android
+
+__________________________________________________________________________________________________________________________
+
+
 # Ombori React Native Code Test
 
 Hi there, we're really excited that you've made it this far in our interview process and look forward to getting to know you better.
